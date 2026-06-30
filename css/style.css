@@ -295,20 +295,6 @@ body.lang-ar .main-content { margin-left: 0; margin-right: var(--sidebar-w); }
   z-index: 2;
 }
 .rdoc-notch-logo { width: 100%; height: 100%; object-fit: contain; }
-.rdoc-notch-word {
-  position: absolute;
-  top: 76px;
-  inset-inline-end: 26px;
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--navy);
-  text-transform: uppercase;
-  z-index: 2;
-  white-space: nowrap;
-}
-.receipt-doc.lang-ar-doc .rdoc-notch-word { font-family: 'Cairo', sans-serif; letter-spacing: 0; inset-inline-end: 8px; }
-
 /* company info block — sits below the notch header, clean white area */
 .rdoc-comp-info {
   padding: 8px 22px 14px;
