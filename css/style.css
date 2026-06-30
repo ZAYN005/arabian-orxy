@@ -307,7 +307,7 @@ body.lang-ar .main-content { margin-left: 0; margin-right: var(--sidebar-w); }
   z-index: 2;
   white-space: nowrap;
 }
-.receipt-doc.lang-ar-doc .rdoc-notch-word { font-family: 'Cairo', sans-serif; letter-spacing: 0; }
+.receipt-doc.lang-ar-doc .rdoc-notch-word { font-family: 'Cairo', sans-serif; letter-spacing: 0; inset-inline-end: 8px; }
 
 /* company info block — sits below the notch header, clean white area */
 .rdoc-comp-info {
@@ -492,5 +492,5 @@ body.lang-ar .toast { right: auto; left: 22px; }
   .form-preview-grid { grid-template-columns: 1fr !important; }
   .preview-wrap { position: static !important; }
   .receipt-doc { box-shadow: none !important; border-radius: 0 !important; }
-  @page { margin: 0; size: A5; }
+  @page { margin: 0; size: A4; }
 }
