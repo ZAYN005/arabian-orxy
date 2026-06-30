@@ -567,14 +567,11 @@ function doExportInvoicePDF(el) {
 function finalizeInvoicePDF(canvas, invNum) {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-  const pw = pdf.internal.pageSize.getWidth();
-  const ph = pdf.internal.pageSize.getHeight();
-  const ratio = canvas.width / canvas.height;
-  let iw = pw, ih = pw / ratio;
-  if (ih > ph) { ih = ph; iw = ph * ratio; }
+  const pw = pdf.internal.pageSize.getWidth();   // 210mm
+  const ph = pdf.internal.pageSize.getHeight();  // 297mm
   const imgData = canvas.toDataURL('image/jpeg', 0.97);
-  pdf.addImage(imgData, 'JPEG', 0, 0, iw, ih);
-
+  // Force fill entire A4 page — stretch to fit, no blank space
+  pdf.addImage(imgData, 'JPEG', 0, 0, pw, ph);
   const filename = `${settings.compEN.replace(/\s+/g, '_')}_${invNum}.pdf`;
   downloadPDFBlob(pdf, filename);
 }
@@ -590,15 +587,18 @@ function doPrintInvoice(el) {
   html2canvas(el, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false })
     .then(canvas => {
       const img = canvas.toDataURL('image/jpeg', 0.98);
-      const win = window.open('', '_blank', 'width=700,height=900');
+      const win = window.open('', '_blank', 'width=794,height=1123');
       win.document.write(`<!DOCTYPE html>
 <html><head><title>Invoice — ${document.getElementById('invNum').value}</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#fff;display:flex;justify-content:center;align-items:flex-start;padding:0}
-  img{width:100%;max-width:794px;display:block}
+  html,body{width:100%;height:100%;background:#fff}
+  img{width:100%;height:100vh;object-fit:fill;display:block}
   @page{margin:0;size:A4 portrait}
-  @media print{body{margin:0}img{width:100%;max-width:none}}
+  @media print{
+    html,body{width:210mm;height:297mm}
+    img{width:210mm;height:297mm;object-fit:fill;display:block}
+  }
 </style></head>
 <body><img src="${img}"></body></html>`);
       win.document.close();
@@ -791,15 +791,12 @@ function doExportPDF(el) {
 
 function finalizePDF(canvas, recNum) {
   const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a5' });
-  const pw = pdf.internal.pageSize.getWidth();
-  const ph = pdf.internal.pageSize.getHeight();
-  const ratio = canvas.width / canvas.height;
-  let iw = pw, ih = pw / ratio;
-  if (ih > ph) { ih = ph; iw = ph * ratio; }
+  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pw = pdf.internal.pageSize.getWidth();   // 210mm
+  const ph = pdf.internal.pageSize.getHeight();  // 297mm
   const imgData = canvas.toDataURL('image/jpeg', 0.97);
-  pdf.addImage(imgData, 'JPEG', 0, 0, iw, ih);
-
+  // Force fill entire A4 page — stretch to fit, no blank space
+  pdf.addImage(imgData, 'JPEG', 0, 0, pw, ph);
   const filename = `${settings.compEN.replace(/\s+/g, '_')}_${recNum}.pdf`;
   downloadPDFBlob(pdf, filename);
 }
@@ -842,15 +839,18 @@ function doPrint(el) {
   html2canvas(el, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false })
     .then(canvas => {
       const img = canvas.toDataURL('image/jpeg', 0.98);
-      const win = window.open('', '_blank', 'width=600,height=800');
+      const win = window.open('', '_blank', 'width=794,height=1123');
       win.document.write(`<!DOCTYPE html>
 <html><head><title>Receipt — ${document.getElementById('recNum').value}</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#fff;display:flex;justify-content:center;align-items:flex-start;padding:0}
-  img{width:100%;max-width:595px;display:block}
-  @page{margin:0;size:A5 portrait}
-  @media print{body{margin:0}img{width:100%;max-width:none}}
+  html,body{width:100%;height:100%;background:#fff}
+  img{width:100%;height:100vh;object-fit:fill;display:block}
+  @page{margin:0;size:A4 portrait}
+  @media print{
+    html,body{width:210mm;height:297mm}
+    img{width:210mm;height:297mm;object-fit:fill;display:block}
+  }
 </style></head>
 <body><img src="${img}"></body></html>`);
       win.document.close();
