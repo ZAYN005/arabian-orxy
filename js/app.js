@@ -174,13 +174,16 @@ function updatePreview() {
   const html = `
     <div class="${docClass}">
       <div class="rdoc-header-notch">
-        <svg viewBox="0 0 595 92" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          ${isAr
-            ? `<polygon points="0,0 595,0 595,92 175,92 250,55 0,55" fill="${BRAND_NAVY_HEX}"/>`
-            : `<polygon points="0,0 595,0 595,55 345,55 420,92 0,92" fill="${BRAND_NAVY_HEX}"/>`}
+        <svg viewBox="0 0 595 92" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+          ${isAr ? `
+            <polygon points="0,0 595,0 595,92 175,92 250,55 0,55" fill="${BRAND_NAVY_HEX}"/>
+            <text x="120" y="82" font-family="Cairo,Arial" font-size="22" font-weight="800" fill="${BRAND_NAVY_HEX}" text-anchor="middle">${docWord}</text>
+          ` : `
+            <polygon points="0,0 595,0 595,55 345,55 420,92 0,92" fill="${BRAND_NAVY_HEX}"/>
+            <text x="475" y="82" font-family="Inter,Arial" font-size="22" font-weight="800" fill="${BRAND_NAVY_HEX}" text-anchor="middle">${docWord}</text>
+          `}
         </svg>
         <div class="rdoc-notch-logo-wrap"><img class="rdoc-notch-logo" src="${LOGO_DATA_URI}" alt="Arabian Oryx logo"></div>
-        <div class="rdoc-notch-word">${docWord}</div>
       </div>
       <div class="rdoc-comp-info">
         <div class="rdoc-comp-en">${settings.compEN}</div>
@@ -402,13 +405,16 @@ function updateInvoicePreview() {
   const html = `
     <div class="${docClass}">
       <div class="rdoc-header-notch">
-        <svg viewBox="0 0 595 92" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          ${isAr
-            ? `<polygon points="0,0 595,0 595,92 175,92 250,55 0,55" fill="${BRAND_NAVY_HEX}"/>`
-            : `<polygon points="0,0 595,0 595,55 345,55 420,92 0,92" fill="${BRAND_NAVY_HEX}"/>`}
+        <svg viewBox="0 0 595 92" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+          ${isAr ? `
+            <polygon points="0,0 595,0 595,92 175,92 250,55 0,55" fill="${BRAND_NAVY_HEX}"/>
+            <text x="120" y="82" font-family="Cairo,Arial" font-size="22" font-weight="800" fill="${BRAND_NAVY_HEX}" text-anchor="middle">${docWord}</text>
+          ` : `
+            <polygon points="0,0 595,0 595,55 345,55 420,92 0,92" fill="${BRAND_NAVY_HEX}"/>
+            <text x="475" y="82" font-family="Inter,Arial" font-size="22" font-weight="800" fill="${BRAND_NAVY_HEX}" text-anchor="middle">${docWord}</text>
+          `}
         </svg>
         <div class="rdoc-notch-logo-wrap"><img class="rdoc-notch-logo" src="${LOGO_DATA_URI}" alt="Arabian Oryx logo"></div>
-        <div class="rdoc-notch-word">${docWord}</div>
       </div>
       <div class="rdoc-comp-info">
         <div class="rdoc-comp-en">${settings.compEN}</div>
