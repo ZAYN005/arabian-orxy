@@ -307,7 +307,7 @@ function renderInvoiceItemsForm() {
       </div>
       <div class="field">
         <label>${isAr ? 'المجموع' : 'Total'}</label>
-        <input readonly class="readonly-field" value="${(it.qty * it.price).toFixed(3)}">
+        <input id="line-total-${it.id}" readonly class="readonly-field" value="${(it.qty * it.price).toFixed(3)}">
       </div>
       <button type="button" class="inv-item-del" onclick="removeInvoiceItem('${it.id}')" title="${isAr ? 'حذف' : 'Remove'}">×</button>
     </div>`).join('');
@@ -341,8 +341,11 @@ function updateInvoiceItem(id, field, value) {
   } else {
     item.qty = field === 'qty' ? (parseFloat(value) || 0) : item.qty;
     item.price = field === 'price' ? (parseFloat(value) || 0) : item.price;
+    // Only update the line total display without re-rendering the entire form
+    const lineTotal = document.getElementById('line-total-' + id);
+    if (lineTotal) lineTotal.value = (item.qty * item.price).toFixed(3);
   }
-  renderInvoiceItemsForm();
+  // Never call renderInvoiceItemsForm() here — it destroys focus
   updateInvoicePreview();
 }
 
