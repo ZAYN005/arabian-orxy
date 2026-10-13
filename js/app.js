@@ -253,21 +253,10 @@ function stampCell(stamp) {
 function titleBlock(stamp, docWord) {
   const s = settings;
   const phones = esc(s.gsm).split(/\s*[\/,]\s*/).filter(Boolean).join(' / ');
-  const meta = [
-    s.cr ? `C.R. ${esc(s.cr)}` : '',
-    s.pobox ? `P.O. Box ${esc(s.pobox)}` : '',
-    esc(s.addr)
-  ].filter(Boolean).join('<i></i>');
   return `
+  <div class="foot">${stampCell(stamp)}</div>
   <div class="tb">
-    <div class="tb-info">
-      <div class="co"><img src="${MARK_URI}" alt=""><div>
-        <div class="t1">${esc(s.compEN)}</div><div class="t2">${esc(s.compAR)}</div></div></div>
-      ${s.tagline ? `<p class="tagline">${esc(s.tagline)}</p>` : ''}
-      <p class="contact">For queries regarding this ${docWord}, please contact us at <b>${phones}</b> or <b>${esc(s.email)}</b>.</p>
-      <p class="meta">${meta}</p>
-    </div>
-    ${stampCell(stamp)}
+    <p class="contact">For queries regarding this ${docWord}, please contact us at <b>${phones}</b> or <b>${esc(s.email)}</b>.</p>
   </div>`;
 }
 
