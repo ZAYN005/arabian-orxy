@@ -227,7 +227,7 @@ legend + * { clear: both; }
 .sheet.denser td { padding: 1.1mm 2.4mm; font-size: 8.2pt; }
 .sheet.dense .sum, .sheet.denser .sum { margin-top: 3.5mm; }
 
-.sheet .sum { display: grid; grid-template-columns: 1fr 62mm; gap: 10mm; margin-top: 5mm; align-items: start; }
+.sheet .sum { display: grid; grid-template-columns: 1fr 70mm; gap: 8mm; margin-top: 5mm; align-items: start; }
 .sheet .words { border-left: 1.6pt solid var(--trace); padding: 1mm 0 1mm 3.5mm; }
 .sheet .words .lbl { justify-content: space-between; }
 .sheet .words p { font-size: 9pt; font-weight: 500; }
@@ -235,12 +235,12 @@ legend + * { clear: both; }
 .sheet .tot > div { display: flex; justify-content: space-between; gap: 3mm; padding: 1.8mm 3mm; border-bottom: 0.5pt solid var(--rule); }
 .sheet .tot > div > span:first-child { color: var(--mute); }
 .sheet .tot .ar { font-size: 7.4pt; color: var(--mute); margin-left: 2mm; }
-.sheet .tot .grand .ar { display: block; margin: .2mm 0 0; font-size: 6.8pt; line-height: 1.2; text-align: left; }
+.sheet .tot .grand .ar { font-size: 6.6pt; margin-left: 1.5mm; }
 .sheet .tot .grand > span:first-child { white-space: nowrap; line-height: 1.15; }
-.sheet .tot .grand { background: var(--ink); color: #fff; border: 0; padding: 1.7mm 3mm; margin-top: 1.2mm; align-items: center; }
+.sheet .tot .grand { background: var(--ink); color: #fff; border: 0; padding: 1.5mm 3mm; margin-top: 1mm; align-items: baseline; }
 .sheet .tot .grand > span:first-child { color: #fff; font-weight: 600; }
 .sheet .tot .grand .ar { color: rgba(255,255,255,.75); }
-.sheet .tot .grand strong { font-size: 10.5pt; font-weight: 700; white-space: nowrap; }
+.sheet .tot .grand strong { font-size: 9.6pt; font-weight: 700; white-space: nowrap; }
 .sheet .notes { margin-top: 6mm; font-size: 8.2pt; color: var(--mute); max-width: 120mm; white-space: pre-line; }
 .sheet .notes b { color: var(--ink); font-weight: 600; }
 
