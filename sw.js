@@ -1,5 +1,5 @@
 // Offline support. Paths are relative so it works under /arabian-orxy/ on GitHub Pages.
-const CACHE = 'ao-docs-v2';
+const CACHE = 'ao-docs-v3';
 const ASSETS = [
   './',
   './index.html',

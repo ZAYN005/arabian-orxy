@@ -10,12 +10,13 @@ const DEFAULT_SETTINGS = {
   subEN: 'Design and Supervision',
   cr: '1337275',
   pobox: '1023400, PC 211',
-  gsm: '+968 9360 3585 / +968 9912 4953',
+  gsm: '+968 9912 4953 / +968 9360 3585',
   email: 'arabianoryx002@gmail.com',
   addr: 'Municipality of Dhofar, near KFC, Salalah',
-  addrAR: 'بلدية ظفار، صلالة، سلطنة عُمان'
+  addrAR: 'بلدية ظفار، صلالة، سلطنة عُمان',
+  tagline: 'Architectural and structural design, site supervision and project management across Dhofar.'
 };
-const SETTINGS_VERSION = 2;
+const SETTINGS_VERSION = 3;
 
 function loadSettings() {
   let saved = null;
@@ -30,6 +31,8 @@ function loadSettings() {
     if (/orxy|consultance/i.test(saved.compEN || '')) saved.compEN = DEFAULT_SETTINGS.compEN;
     if (saved.compAR === 'المها العربية للإستشارات الهندسية') saved.compAR = DEFAULT_SETTINGS.compAR;
     if (saved.gsm === '+968 99124953 / +968 93603585') saved.gsm = DEFAULT_SETTINGS.gsm;
+    // Version 3: the office wants 9912 4953 listed first.
+    if (saved.gsm === '+968 9360 3585 / +968 9912 4953') saved.gsm = DEFAULT_SETTINGS.gsm;
     try {
       localStorage.setItem('ao_settings', JSON.stringify(saved));
       localStorage.setItem('ao_settings_version', String(SETTINGS_VERSION));
@@ -247,20 +250,24 @@ function stampCell(stamp) {
   return `<div class="sign">${inner}<div class="lbl"><span>Stamp and signature</span><span class="ar">الختم والتوقيع</span></div></div>`;
 }
 
-function titleBlock(stamp) {
+function titleBlock(stamp, docWord) {
   const s = settings;
-  const phones = esc(s.gsm).split(/\s*[\/,]\s*/).filter(Boolean).join('<br>');
+  const phones = esc(s.gsm).split(/\s*[\/,]\s*/).filter(Boolean).join(' / ');
+  const meta = [
+    s.cr ? `C.R. ${esc(s.cr)}` : '',
+    s.pobox ? `P.O. Box ${esc(s.pobox)}` : '',
+    esc(s.addr)
+  ].filter(Boolean).join('<i></i>');
   return `
   <div class="tb">
-    <div class="co"><img src="${MARK_URI}" alt=""><div>
-      <div class="t1">${esc(s.compEN)}</div><div class="t2">${esc(s.compAR)}</div></div></div>
+    <div class="tb-info">
+      <div class="co"><img src="${MARK_URI}" alt=""><div>
+        <div class="t1">${esc(s.compEN)}</div><div class="t2">${esc(s.compAR)}</div></div></div>
+      ${s.tagline ? `<p class="tagline">${esc(s.tagline)}</p>` : ''}
+      <p class="contact">For queries regarding this ${docWord}, please contact us at <b>${phones}</b> or <b>${esc(s.email)}</b>.</p>
+      <p class="meta">${meta}</p>
+    </div>
     ${stampCell(stamp)}
-    <div class="first"><div class="lbl"><span>C.R. no.</span><span class="ar">س.ت</span></div><div class="x">${esc(s.cr)}</div></div>
-    <div><div class="lbl"><span>P.O. Box</span><span class="ar">ص.ب</span></div><div class="x">${esc(s.pobox)}</div></div>
-    <div><div class="lbl"><span>Telephone</span><span class="ar">هاتف</span></div><div class="x">${phones}</div></div>
-    <div class="first"><div class="lbl"><span>Office</span><span class="ar">العنوان</span></div><div class="x">${esc(s.addr)}</div></div>
-    <div><div class="lbl"><span>Email</span><span class="ar">البريد</span></div><div class="x">${esc(s.email)}</div></div>
-    <div><div class="lbl"><span>Sheet</span><span class="ar">صفحة</span></div><div class="x">1 of 1</div></div>
   </div>`;
 }
 
@@ -268,7 +275,7 @@ function docHeader(titleURI, titleEN, titleAR) {
   return `
     <div class="head">
       <div class="brand">
-        <img class="mark" src="${MARK_URI}" alt="AOEC">
+        <div class="mark-col"><img class="mark" src="${MARK_URI}" alt="AOEC"><div class="services">${esc(settings.subEN)}</div></div>
         <span class="div"></span>
         <div>
           <img class="word" src="${WORD_URI}" alt="Arabian Oryx">
@@ -277,8 +284,7 @@ function docHeader(titleURI, titleEN, titleAR) {
         </div>
       </div>
       <div class="doctype"><h1><img src="${titleURI}" alt="${titleEN}"></h1><div class="ar">${titleAR}</div></div>
-    </div>
-    <div class="dim"><b class="l"></b><b class="r"></b><em>${esc(settings.subEN)}</em></div>`;
+    </div>`;
 }
 
 function linesTable(lines, sym) {
@@ -314,10 +320,10 @@ function summaryBlock(sub, vat, total, rate, sym, grandEN, grandAR) {
     </div>`;
 }
 
-function sheet(body, stamp, lineCount = 1) {
+function sheet(body, stamp, lineCount = 1, docWord = 'document') {
   // Tighten the table on long invoices so they still fit one A4 sheet.
   const density = lineCount > 14 ? ' denser' : lineCount > 8 ? ' dense' : '';
-  return `<div class="sheet${density}"><div class="frame"><div class="inner">${body}</div>${titleBlock(stamp)}</div></div>`;
+  return `<div class="sheet${density}"><div class="frame"><div class="inner">${body}</div>${titleBlock(stamp, docWord)}</div></div>`;
 }
 
 // ═══════════════════════════════════════════
@@ -371,7 +377,7 @@ function receiptHTML(r) {
     </div>
     ${linesTable([{ desc: r.description, amount: r.amount }], r.sym).replace('<th>Description<span class="ar">البيان</span></th>', '<th>Being settlement of<span class="ar">وذلك عن</span></th>')}
     ${summaryBlock(r.amount, r.vat, r.total, r.vatRate, r.sym, 'Total received', 'المبلغ المستلم')}`;
-  return sheet(body, r.stamp);
+  return sheet(body, r.stamp, 1, 'receipt');
 }
 
 function updatePreview() {
@@ -472,7 +478,7 @@ function invoiceHTML(d) {
     ${linesTable(d.items, d.sym)}
     ${summaryBlock(d.subtotal, d.vat, d.total, d.vatRate, d.sym, 'Total due', 'الإجمالي المستحق')}
     ${d.notes ? `<p class="notes" dir="auto"><b>Notes.</b> ${esc(d.notes)}</p>` : ''}`;
-  return sheet(body, d.stamp, d.items.length);
+  return sheet(body, d.stamp, d.items.length, 'invoice');
 }
 
 function updateInvoicePreview() {
@@ -699,7 +705,7 @@ function reprintFromHistory(i) {
 // ═══════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════
-const SETTING_KEYS = ['compEN', 'compAR', 'subEN', 'cr', 'pobox', 'gsm', 'email', 'addr', 'addrAR'];
+const SETTING_KEYS = ['compEN', 'compAR', 'subEN', 'tagline', 'cr', 'pobox', 'gsm', 'email', 'addr', 'addrAR'];
 function loadSettingsToForm() { SETTING_KEYS.forEach(k => { $('s-' + k).value = settings[k] || ''; }); }
 function saveSettings() {
   SETTING_KEYS.forEach(k => { settings[k] = $('s-' + k).value; });
