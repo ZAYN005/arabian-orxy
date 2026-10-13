@@ -1,4 +1,4 @@
-# Arabian Orxy Engineering Consultance — Receipt PWA
+# Arabian Oryx Engineering Consultancy — Receipts & Invoices PWA
 
 ## 🚀 Deploy to GitHub Pages (Free)
 
@@ -51,12 +51,12 @@ Go to https://github.com and sign up (free, no credit card).
 
 ## Features
 - ✅ Arabic / English toggle
-- ✅ VAT 5% auto-applied
+- ✅ VAT % adjustable per document
 - ✅ Cash / Cheque / Bank Transfer
 - ✅ Multi-currency
-- ✅ PDF export
-- ✅ Direct print to any connected printer
+- ✅ A4 "drawing sheet" design, bilingual English/Arabic
+- ✅ Sharp vector printing to any printer, plus PDF download
 - ✅ Save receipt history on device
-- ✅ PAID / UNPAID / DRAFT stamp
+- ✅ Company stamp and signature, or UNPAID / DRAFT marks
 - ✅ Works offline
 - ✅ Installable as mobile app

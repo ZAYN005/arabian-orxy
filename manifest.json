@@ -1,25 +1,16 @@
 {
-  "name": "Arabian Orxy Engineering Consultance",
-  "short_name": "Orxy Receipts",
-  "description": "Professional receipt management for Arabian Orxy Engineering Consultance",
-  "start_url": "/",
+  "name": "Arabian Oryx Engineering Consultancy",
+  "short_name": "Oryx Invoices",
+  "description": "Receipt vouchers and tax invoices for Arabian Oryx Engineering Consultancy",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0a1628",
-  "theme_color": "#0a1628",
-  "orientation": "portrait-primary",
+  "background_color": "#EEF1F5",
+  "theme_color": "#16243D",
+  "orientation": "any",
   "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "categories": ["business", "finance"],
   "lang": "en",
